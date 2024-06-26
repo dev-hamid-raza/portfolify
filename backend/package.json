@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "The Portfolio Builder App is a powerful and intuitive application designed to help users create and manage their personal and professional portfolios with ease. Built using the MERN stack (MongoDB, Express.js, React, and Node.js), this app provides a seamless experience from start to finish.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [
+    "react",
+    "MERN",
+    "portfolify",
+    "fullstack",
+    "express",
+    "node",
+    "javascript"
+  ],
+  "author": "Hamid Raza",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.2"
+  }
+}
