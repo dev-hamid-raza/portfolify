@@ -10,6 +10,14 @@ const userSchema = new Schema({
         trim: true,
         index: true
     },
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        index: true
+    },
     firstName: {
         type: String,
         required: true,
@@ -58,6 +66,7 @@ userSchema.methods.generateAccessToken = function(){
     return jwt.sign(
         {
             _id: this._id,
+            username: this.username,
             email: this.email,
             firstName: this.firstName,
             lastName: this.lastName
