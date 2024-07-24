@@ -12,7 +12,6 @@ const userSchema = new Schema({
     },
     username: {
         type: String,
-        required: true,
         unique: true,
         lowercase: true,
         trim: true,
@@ -26,12 +25,15 @@ const userSchema = new Schema({
     avatar: {
         type: String, // Cloudinary url
     },
+    githubId:{
+        type: String
+    },
     coverImage: {
         type: String
     },
     password: {
         type: String,
-        required: true
+        // required: true
     },
     refreshToken: {
         type: String
