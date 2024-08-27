@@ -25,6 +25,9 @@ const userSchema = new Schema({
     avatar: {
         type: String, // Cloudinary url
     },
+    googleId: {
+        type: String
+    },
     githubId:{
         type: String
     },

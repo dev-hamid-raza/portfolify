@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended:true, limit:'16kb'}))
 app.use(express.static('public'))
 app.use(cookieParser())
 
-// app.use(passport.initialize())
+app.use(passport.initialize())
 
 // routes imports
 import userRouter from './routes/user.routes.js'
