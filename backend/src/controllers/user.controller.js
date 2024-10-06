@@ -28,7 +28,25 @@ const registerUser = asyncHandler( async (req, res) => {
     if(existingUser) {
         throw new ApiError(409, "This email already exists")
     }
-    const username = 56
+    const generateUniqueUsername = async (fullName) => {
+        let baseUsername = fullName.replace(/\s+/g,'').toLowerCase()
+
+        let existingUser = await User.findOne({username: baseUsername })
+
+        let uniqueUserName = baseUsername
+        let counter = 1
+
+        while(existingUser) {
+            uniqueUserName = `${baseUsername}${counter}`
+            existingUser = await User.findOne({ username: uniqueUserName })
+            counter++
+        }
+
+        return uniqueUserName
+    }
+
+    const username = await generateUniqueUsername(fullName)
+
     // create user
     const user = await User.create({
         email,
