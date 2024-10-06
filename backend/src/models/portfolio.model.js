@@ -1,5 +1,21 @@
 import mongoose, {Schema} from "mongoose";
 
+const projectSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    link: {
+        type: String
+    },
+    description: {
+        type: String
+    },
+    skills: [
+        {type:String}
+    ]
+})
+
 const portfolioSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
@@ -14,18 +30,8 @@ const portfolioSchema = new Schema({
         type: String
     },
     projects: [
-        {
-            title: String,
-            description: String,
-            link: String
-        }
+        projectSchema
     ],
-    socialLinks: {
-        github: String,
-        twitter: String,
-        linkedin: String,
-        website: String
-    },
     isPublic: {
         type: Boolean,
         default: true

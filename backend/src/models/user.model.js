@@ -45,6 +45,12 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Portfolio'
     },
+    socialLinks: {
+        github: String,
+        twitter: String,
+        linkedin: String,
+        website: String
+    },
     skills: [
         {
             type:String
