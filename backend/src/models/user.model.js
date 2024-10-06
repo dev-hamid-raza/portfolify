@@ -42,8 +42,8 @@ const userSchema = new Schema({
         type: String
     },
     portfolio: {
-        type:Schema.Types.ObjectID,
-        ref: 'Project'
+    type: Schema.Types.ObjectId,
+    ref: 'Portfolio'
     },
     skills: [
         {
