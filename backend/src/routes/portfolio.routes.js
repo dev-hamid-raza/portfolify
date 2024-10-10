@@ -4,9 +4,8 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router()
 
-router.route('/create').post(verifyJWT, createPortfolio)
-router.route('/ update').post(verifyJWT, updatePortfolio)
-
+router.route('/').post(verifyJWT, createPortfolio)
+router.route('/update').post(verifyJWT, updatePortfolio)
 router.route('/:username').get(getPortfolioByUsername)
 
 
