@@ -21,9 +21,11 @@ app.use(passport.initialize())
 // routes imports
 import userRouter from './routes/user.routes.js'
 import portfolioRouter from './routes/portfolio.routes.js'
+import chatroomRouter from './routes/chatRoom.routes.js'
 // routes declaration
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/portfolio', portfolioRouter)
+app.use('/api/v1/chatroom',chatroomRouter)
 
 
 
