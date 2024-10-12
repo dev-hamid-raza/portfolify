@@ -3,6 +3,7 @@ import connectDB from "./db/index.js";
 import dotenv from 'dotenv'
 import { Server } from 'socket.io'
 import http from 'http'
+import { socketHandlers } from "./sockets/socketHandlers.js";
 
 dotenv.config({path: './env'})
 
@@ -16,24 +17,7 @@ const io = new Server(server, {
     }
 })
 
-io.on('connection', (socket) => {
-    console.log('A user connected:', socket.id)
-
-    socket.on('joinRoom', (roomId) => {
-        socket.join(roomId)
-        console.log(`User ${socket.id} joined room: ${roomId}`,)
-    })
-
-    socket.on('chatMessage', (data) => {
-        const {roomId, message } = data
-        io.to(roomId).emit('message', message)
-        console.log(`Message from ${socket.id} in room ${roomId}:`, message)
-    })
-    
-    socket.on('disconnect', () => {
-        console.log('User disconnect:', socket.id)
-    })
-})
+socketHandlers(io)
 
 connectDB()
 .then(() => {

@@ -2,12 +2,12 @@ import { text } from "express";
 import mongoose, { Schema } from "mongoose";
 
 const messageSchema = new Schema({
-    user: {
+    sender: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    text: {
+    content: {
         type: String,
         require: true
     },

@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { createChatRoom, getChatMessages, addMessageToRoom } from "../controllers/chatRoom.controller.js";
+import { getOrCreateChatRoom, addMessageToChatRoom } from "../controllers/chatRoom.controller.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router()
 
 
-router.route('/').post(createChatRoom)
-router.route('/:roomId/messages').get(getChatMessages)
-router.route('/:roomId/message').post(addMessageToRoom)
+router.route('/').post(verifyJWT,getOrCreateChatRoom)
+router.route('/message').post(verifyJWT, addMessageToChatRoom)
 
 export default router
