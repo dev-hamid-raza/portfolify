@@ -53,11 +53,6 @@ const registerUser = asyncHandler( async (req, res) => {
         fullName,
         password,
         username,
-        avatar: '',
-        googleId: '',
-        githubId: '',
-        coverImage: '',
-        socialLinks: '',
         skills: ''
     })
     

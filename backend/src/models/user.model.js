@@ -28,15 +28,17 @@ const userSchema = new Schema({
     },
     avatar: {
         type: String, // Cloudinary url
+        default: ''
     },
     googleId: {
-        type: String
+        type: String,
     },
     githubId:{
         type: String
     },
     coverImage: {
-        type: String
+        type: String,
+        default: ''
     },
     password: {
         type: String,
