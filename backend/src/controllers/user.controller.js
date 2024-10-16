@@ -111,7 +111,7 @@ const loginUser = asyncHandler( async (req,res) => {
 })
 
 const logOutUser = asyncHandler( async(req, res) => {
-    await User.findByIdAndDelete(
+    await User.findByIdAndUpdate(
         req.user._id,
         {
             $set: {
