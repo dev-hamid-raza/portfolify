@@ -36,10 +36,6 @@ const userSchema = new Schema({
     githubId:{
         type: String
     },
-    coverImage: {
-        type: String,
-        default: ''
-    },
     password: {
         type: String,
         // required: true
