@@ -52,7 +52,13 @@ const registerUser = asyncHandler( async (req, res) => {
         email,
         fullName,
         password,
-        username
+        username,
+        avatar: '',
+        googleId: '',
+        githubId: '',
+        coverImage: '',
+        socialLinks: '',
+        skills: ''
     })
     
     const createdUser = await User.findById(user._id).select(
@@ -165,6 +171,99 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     }
 })
 
+const updateUserPassword = asyncHandler(async (req, res) => {
+    const userId = req.user._id; // Assuming you're using JWT and have middleware that attaches the user to the request
+    const { oldPassword, newPassword } = req.body;
 
+    // Validate input fields
+    if (!oldPassword || !newPassword) {
+        throw new ApiError(400, "Old password and new password are required");
+    }
 
-export { registerUser, loginUser, logOutUser, refreshAccessToken,};
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    // Check if the old password is correct
+    const isPasswordValid = await user.isPasswordCorrect(oldPassword);
+    if (!isPasswordValid) {
+        throw new ApiError(401, "Old password is incorrect");
+    }
+
+    // Update the password
+    user.password = newPassword; // Mongoose pre-save hook will take care of hashing
+    await user.save();
+
+    return res.status(200).json(new ApiResponse(200, {}, 'Password updated successfully'));
+});
+
+const updateUserDetails = asyncHandler(async (req, res) => {
+    const userId = req.user._id; // Assuming you're using JWT and have middleware that attaches the user to the request
+    const { username, avatar, skills, bio } = req.body;
+
+    // Validate input
+    if (!username && !avatar && !skills) {
+        throw new ApiError(400, "At least one field (username, avatar, skills) is required for update");
+    }
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    // Update fields only if they are provided
+    if (username) {
+        user.username = username;
+    }
+    if (avatar) {
+        user.avatar = avatar; // Assuming avatar is a URL or a file path
+    }
+    if (bio) {
+        user.bio = bio; // Assuming avatar is a URL or a file path
+    }
+    if (skills && Array.isArray(skills)) {
+        user.skills = skills; // Assuming skills is an array of strings
+    }
+
+    // Save the updated user
+    await user.save();
+
+    return res.status(200).json(new ApiResponse(200, user, 'User details updated successfully'));
+});
+
+const updateSocialLinks = asyncHandler(async (req, res) => {
+    const userId = req.user._id; // Get user ID from the request (assumes user is authenticated)
+
+    const { github, twitter, linkedin, website } = req.body; // Destructure social links from the request body
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    // Update social links
+    user.socialLinks.github = github || user.socialLinks.github;
+    user.socialLinks.twitter = twitter || user.socialLinks.twitter;
+    user.socialLinks.linkedin = linkedin || user.socialLinks.linkedin;
+    user.socialLinks.website = website || user.socialLinks.website;
+
+    // Save the updated user
+    await user.save();
+
+    return res.status(200).json({
+        message: "Social links updated successfully",
+        socialLinks: user.socialLinks
+    });
+});
+
+export {registerUser,
+        loginUser,
+        logOutUser,
+        refreshAccessToken,
+        updateUserPassword,
+        updateUserDetails,
+        updateSocialLinks};

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { logOutUser, loginUser, refreshAccessToken, registerUser,} from "../controllers/user.controller.js";
+import { logOutUser, loginUser, refreshAccessToken, registerUser, updateSocialLinks, updateUserDetails, updateUserPassword,} from "../controllers/user.controller.js";
 import passport from 'passport';
 import '../auth/passport.js'; 
 import {verifyJWT} from '../middlewares/auth.middleware.js'
@@ -8,6 +8,8 @@ const router = Router()
 
 // User registration route
 router.route('/register').post(registerUser)
+router.route('/update-password').patch(verifyJWT, updateUserPassword)
+router.route('/social-links').put(verifyJWT, updateSocialLinks)
 
 // User login route
 router.route('/login').post(loginUser)
