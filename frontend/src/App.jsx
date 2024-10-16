@@ -1,11 +1,21 @@
-import LandingPage from "./components/landing-page"
+
+import LinksPage from "./LinkPage"
+import ProfileDetails from "./ProfileDetails"
+import SignIn from "./SignIn"
 
 function App() {
 
 
   return (
-    <div className="app bg-primary px-4">
-        <LandingPage />
+    <div className="app">
+        {/* <LandingPage /> */}
+        {/* <LoginForm /> */}
+        {/* <SignUpForm /> */}
+        {/* <Header /> */}
+        {/* <Register /> */}
+        {/* <SignIn /> */}
+        {/* <ProfileDetails /> */}
+        <LinksPage />
     </div>
   )
 }
