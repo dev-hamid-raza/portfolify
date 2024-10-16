@@ -3,6 +3,7 @@ import { ApiError } from '../utils/ApiError.js'
 import { User } from '../models/user.model.js'
 import { ApiResponse } from '../utils/ApiResponse.js'
 import jwt from 'jsonwebtoken'
+import { uploadFileOnCloudinary } from '../utils/cloudinary.js'
 
 
 const generateAccessTokenAndRefreshToken = async(userId) => {
@@ -196,11 +197,13 @@ const updateUserPassword = asyncHandler(async (req, res) => {
 
 const updateUserDetails = asyncHandler(async (req, res) => {
     const userId = req.user._id; // Assuming you're using JWT and have middleware that attaches the user to the request
-    const { username, avatar, skills, bio } = req.body;
+    const { username, skills, bio } = req.body;
+    const avatarLocalPath = req.files?.avatar[0]?.path
+    const coverImageLocalPath = req.files?.coverImage[0]?.path
 
     // Validate input
-    if (!username && !avatar && !skills) {
-        throw new ApiError(400, "At least one field (username, avatar, skills) is required for update");
+    if (!username && !avatarLocalPath && coverImageLocalPath && !skills) {
+        throw new ApiError(400, "At least one field (username, avatar, skills, cover Image) is required for update");
     }
 
     // Find the user by ID
@@ -213,6 +216,9 @@ const updateUserDetails = asyncHandler(async (req, res) => {
     if (username) {
         user.username = username;
     }
+
+    const avatar = await uploadFileOnCloudinary(avatarLocalPath)
+    
     if (avatar) {
         user.avatar = avatar; // Assuming avatar is a URL or a file path
     }

@@ -3,12 +3,14 @@ import { logOutUser, loginUser, refreshAccessToken, registerUser, updateSocialLi
 import passport from 'passport';
 import '../auth/passport.js'; 
 import {verifyJWT} from '../middlewares/auth.middleware.js'
+import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router()
 
 // User registration route
 router.route('/register').post(registerUser)
 router.route('/update-password').patch(verifyJWT, updateUserPassword)
+router.route('/update-user').patch(verifyJWT, upload.fields([{name:'avatar', maxCount: 1}, {name:'coverImage', maxCount: 1}]) ,updateUserDetails)
 router.route('/social-links').put(verifyJWT, updateSocialLinks)
 
 // User login route
