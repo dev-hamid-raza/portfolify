@@ -246,7 +246,9 @@ const updateUserDetails = asyncHandler(async (req, res) => {
     // Save the updated user
     await user.save();
 
-    return res.status(200).json(new ApiResponse(200, user, 'User details updated successfully'));
+    const updatedUser = await User.findById(user._id).select('-password -refreshToken')
+
+    return res.status(200).json(new ApiResponse(200, updatedUser, 'User details updated successfully'));
 });
 
 const updateSocialLinks = asyncHandler(async (req, res) => {
