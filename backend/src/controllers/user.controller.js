@@ -198,7 +198,6 @@ const updateUserPassword = asyncHandler(async (req, res) => {
 const updateUserDetails = asyncHandler(async (req, res) => {
     const userId = req.user._id; // Assuming you're using JWT and have middleware that attaches the user to the request
     const { username, skills, bio } = req.body;
-    console.log(req.body)
     const avatarLocalPath = req.files?.avatar[0]?.path
 
     // Validate input
@@ -240,6 +239,7 @@ const updateUserDetails = asyncHandler(async (req, res) => {
         user.bio = bio; // Assuming avatar is a URL or a file path
     }
     if (skills && Array.isArray(skills)) {
+        console.log("object")
         user.skills = skills; // Assuming skills is an array of strings
     }
 
