@@ -212,8 +212,22 @@ const updateUserDetails = asyncHandler(async (req, res) => {
         throw new ApiError(404, "User not found");
     }
 
+    // Regular expression to validate URL-friendly username
+    const usernameRegex = /^[a-zA-Z0-9-_]+$/;
     // Update fields only if they are provided
     if (username) {
+
+        // Validate the username format
+        if (!usernameRegex.test(username)) {
+            throw new ApiError(400, "Username must only contain letters, numbers, hyphens, or underscores.");
+        }
+
+        const existingUser = await User.findOne({ username });
+
+        if (existingUser && existingUser._id.toString() !== user._id.toString()) {
+            throw new ApiError(409, "Username is already taken");
+        }
+
         user.username = username;
     }
 
