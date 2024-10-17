@@ -198,10 +198,11 @@ const updateUserPassword = asyncHandler(async (req, res) => {
 const updateUserDetails = asyncHandler(async (req, res) => {
     const userId = req.user._id; // Assuming you're using JWT and have middleware that attaches the user to the request
     const { username, skills, bio } = req.body;
+    console.log(req.body)
     const avatarLocalPath = req.files?.avatar[0]?.path
 
     // Validate input
-    if (!username && !avatarLocalPath && !skills) {
+    if (!username && !avatarLocalPath && !skills && !bio) {
         throw new ApiError(400, "At least one field (username, avatar, skills,) is required for update");
     }
 
@@ -219,7 +220,7 @@ const updateUserDetails = asyncHandler(async (req, res) => {
     const avatar = await uploadFileOnCloudinary(avatarLocalPath)
     
     if (avatar) {
-        user.avatar = avatar; // Assuming avatar is a URL or a file path
+        user.avatar = avatar.url; // Assuming avatar is a URL or a file path
     }
     if (bio) {
         user.bio = bio; // Assuming avatar is a URL or a file path
