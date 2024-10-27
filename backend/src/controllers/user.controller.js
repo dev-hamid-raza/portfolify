@@ -277,10 +277,17 @@ const updateSocialLinks = asyncHandler(async (req, res) => {
     });
 });
 
+const checkAuth = asyncHandler( async (req, res) => {
+    res
+        .status(200)
+        .json(new ApiResponse(200,'','User login successfully'))
+})
+
 export {registerUser,
         loginUser,
         logOutUser,
         refreshAccessToken,
         updateUserPassword,
         updateUserDetails,
-        updateSocialLinks};
+        updateSocialLinks,
+        checkAuth};

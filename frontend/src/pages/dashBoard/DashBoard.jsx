@@ -7,7 +7,7 @@ const DashBoard = () => {
 
   // Dashboard rows for each profile field
   const fields = [
-    { name: 'Nickname', value: profile.nickname },
+    { name: 'Username', value: profile.username },
     { name: 'Profile Picture', value: profile.profilePicture },
     { name: 'Tagline', value: profile.tagline },
     { name: 'Bio', value: profile.bio },

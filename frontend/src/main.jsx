@@ -18,11 +18,11 @@ import ProtectedRoute from './utils/ProtectedRoute.jsx'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
-    <Route path='' element = {<LandingPage/>}/>
-    <Route path='login' element = {<SignIn/>}/>
-    <Route path='signup' element ={<Register/>}/>
-    <Route path='profile' element ={<ProfileDetails/>}/>
-    <Route path='dashboard' element = {<DashBoard />}/>
+    <Route path='' element = {<ProtectedRoute publicOnly={true}><LandingPage /></ProtectedRoute>}/>
+    <Route path='login' element = {<ProtectedRoute publicOnly={true}><SignIn /></ProtectedRoute>}/>
+    <Route path='signup' element ={<ProtectedRoute publicOnly={true}><Register /></ProtectedRoute>}/>
+    <Route path='profile' element ={<ProtectedRoute><ProfileDetails/></ProtectedRoute>}/>
+    <Route path='dashboard' element = {<ProtectedRoute><DashBoard/></ProtectedRoute>}/>
     <Route path='links' element = {<Links/>}/>
     <Route path='social' element = {<SocialAccounts/>}/>
     <Route path='edit' element = {<ProfileEdit/>}/>

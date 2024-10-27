@@ -4,6 +4,7 @@ import passport from 'passport';
 import '../auth/passport.js'; 
 import {verifyJWT} from '../middlewares/auth.middleware.js'
 import { upload } from "../middlewares/multer.middleware.js";
+import { checkAuth } from "../controllers/user.controller.js";
 
 const router = Router()
 
@@ -97,7 +98,8 @@ router.get('/twitter/callback', passport.authenticate('twitter', { session: fals
 
 
 // Secure routes
-router.route('/logout').post(verifyJWT, logOutUser)
+router.route('/check-auth').get(verifyJWT,checkAuth)
+router.route('/logout').get(verifyJWT, logOutUser)
 router.route('/refresh-token').post(refreshAccessToken)
 
 

@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import google from "../assets/icons/google.svg"
 import github from "../assets/icons/github.svg"
 import axios from 'axios';
-import Cookies from 'js-cookie'
 
 
 const SignIn = () => {
@@ -52,7 +51,8 @@ const SignIn = () => {
         password: formData.password,
       },{ withCredentials: true});
       console.log(response.status)
-      if(response.status === 200 ) {
+      if(response.status === 200) {
+        console.log(response.data.data.user)
         navigate('/dashboard')
       }
       console.log('Form data submitted:', formData);

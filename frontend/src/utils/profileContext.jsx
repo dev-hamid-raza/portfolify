@@ -7,20 +7,20 @@ export const useProfile = () => useContext(ProfileContext)
 export const ProfileProvider = ({ children }) => {
   const [profile, setProfile] = useState({
     name:"",
-    email:"",
-    password: "iqra12",
+    fullName:"",
+    password: "",
     profilePicture : "",
-    nickName : "",
-    tagline: "this is a tagline",
+    username : "",
+    tagline: "",
     bio: "",
     template: "",
     resumeTemplate : "",
-    skills: ["css"],
-    stack: ["mern", "stack"],
+    skills: [],
+    stack: [],
     hobbies: [],
     language: "",
     links: [],
-    portfolio: "https://folli.io/hamidraza",
+    portfolio: "",
     socialLinks: {
         linkedIn: "", twitter: "", facebook: "", instagram: "", github:"", youtube: "", dribble: "", behance:"", tiktok:"", printerest:"", snapchat:"", raddit:"", tumblr:"", spotify:"", soundCloud:""
     }
