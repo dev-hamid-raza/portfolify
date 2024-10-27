@@ -1,4 +1,10 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import google from "../assets/icons/google.svg"
+import github from "../assets/icons/github.svg"
+// import axios from '../axiosConfig';
+import axios from 'axios';
+
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +15,9 @@ const Register = () => {
   });
   
   const [errors, setErrors] = useState({});
-
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate()
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -40,28 +48,54 @@ const Register = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
+
+      setLoading(true);
+      setErrors({});
+      setSuccessMessage('');
+      try {
+        const response = await axios.post('http://localhost:8000/api/v1/users/register', {
+          fullName: formData.name,
+          email: formData.email,
+          password: formData.password,
+        });
+        setSuccessMessage(response.data.message); // Message from backend response
+        setFormData({
+          fullName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        });
+        
+        navigate('/dashboard')
+      } catch (err) {
+        setErrors({ form: err.response?.data?.message || 'Registration failed' });
+        console.log(errors)
+        console.log(err.response.data)
+      } finally {
+        setLoading(false);
+      }
       console.log('Form Submitted:', formData);
       // Handle form submission (e.g., call API)
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 ">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
         <div className="text-center mb-6">
           <span className="inline-block text-3xl font-bold">🔗</span>
           <h2 className="text-2xl font-semibold">Create a new account</h2>
           <p className="mt-2 text-sm">
             Or{' '}
-            <a href="/login" className="text-blue-600 hover:underline">
+            <Link to="/login" className="text-blue-600 hover:underline">
               sign in to your account
-            </a>
+            </Link>
           </p>
         </div>
         <form onSubmit={handleSubmit}>
@@ -123,18 +157,18 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-gray-900 text-white py-2 px-4 rounded-lg hover:bg-gray-800 focus:outline-none"
+            className="w-full bg-classic_blue-900 text-white py-2 px-4 rounded-lg hover:bg-classic_blue-800 focus:outline-none"
           >
             Register
           </button>
         </form>
         <div className="mt-6">
           <button className="w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-100 flex items-center justify-center mb-3">
-            <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" className="h-5 w-5 mr-2" />
+            <img src={google} alt="Google" className="h-5 w-5 mr-2" />
             Login with Google
           </button>
           <button className="w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-100 flex items-center justify-center">
-            <img src="https://www.svgrepo.com/show/448234/github.svg" alt="GitHub" className="h-5 w-5 mr-2" />
+            <img src={github} alt="GitHub" className="h-5 w-5 mr-2" />
             Login with GitHub
           </button>
         </div>

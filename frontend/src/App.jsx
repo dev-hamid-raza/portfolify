@@ -1,23 +1,28 @@
 
-import LinksPage from "./LinkPage"
-import ProfileDetails from "./ProfileDetails"
-import SignIn from "./SignIn"
+import Navbar from './components/header/Navbar'
+import { Outlet } from 'react-router-dom'
+import Footer from './components/footer/Footer'
 
 function App() {
 
 
   return (
-    <div className="app">
-        {/* <LandingPage /> */}
-        {/* <LoginForm /> */}
-        {/* <SignUpForm /> */}
-        {/* <Header /> */}
-        {/* <Register /> */}
-        {/* <SignIn /> */}
-        {/* <ProfileDetails /> */}
-        <LinksPage />
-    </div>
+    <>
+      <Navbar/>
+      <Outlet/>
+      <Footer/>
+    </>
   )
 }
 
+// <div className="app">
+//     {/* <LandingPage /> */}
+//     {/* <LoginForm /> */}
+//     {/* <SignUpForm /> */}
+//     {/* <Header /> */}
+//     {/* <Register /> */}
+//     {/* <SignIn /> */}
+//     {/* <ProfileDetails /> */}
+    
+// </div>
 export default App
