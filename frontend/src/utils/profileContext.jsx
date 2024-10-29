@@ -6,12 +6,12 @@ export const useProfile = () => useContext(ProfileContext)
 
 export const ProfileProvider = ({ children }) => {
   const [profile, setProfile] = useState({
-    name:"",
+    email: '',
     fullName:"",
     password: "",
-    profilePicture : "",
+    avatar : "",
     username : "",
-    tagline: "",
+    // tagline: "",
     bio: "",
     template: "",
     resumeTemplate : "",
@@ -22,8 +22,27 @@ export const ProfileProvider = ({ children }) => {
     links: [],
     portfolio: "",
     socialLinks: {
-        linkedIn: "", twitter: "", facebook: "", instagram: "", github:"", youtube: "", dribble: "", behance:"", tiktok:"", printerest:"", snapchat:"", raddit:"", tumblr:"", spotify:"", soundCloud:""
+        facebook: ''
     }
+    // name:"",
+    // fullName:"",
+    // password: "",
+    // profilePicture : "",
+    // username : "",
+    // tagline: "",
+    // bio: "",
+    // template: "",
+    // resumeTemplate : "",
+    // skills: [],
+    // stack: [],
+    // hobbies: [],
+    // language: "",
+    // links: [],
+    // portfolio: "",
+    // socialLinks: {
+    //     linkedIn: "", twitter: "", facebook: "", instagram: "", github:"", youtube: "", dribble: "", behance:"", tiktok:"", printerest:"", snapchat:"", raddit:"", tumblr:"", spotify:"", soundCloud:""
+    // }
+    
   })
   const updateProfile = (newProfileData) => {
     setProfile((prev) => ({ ...prev, ...newProfileData }))

@@ -3,25 +3,27 @@ import { Link, useNavigate } from "react-router-dom";
 import google from "../assets/icons/google.svg"
 import github from "../assets/icons/github.svg"
 import axios from 'axios';
+import { useProfile } from '../utils/profileContext';
 
 
 const SignIn = () => {
+  const { profile, updateProfile } = useProfile()
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-
+  
   const [errors, setErrors] = useState({
     email: '',
     password: '',
   });
-
+  
   // Form validation function
   const validateForm = () => {
     let isValid = true;
     const newErrors = {};
-
+    
     // Email validation
     if (!formData.email) {
       isValid = false;
@@ -30,17 +32,17 @@ const SignIn = () => {
       isValid = false;
       newErrors.email = 'Please enter a valid email';
     }
-
+    
     // Password validation
     if (!formData.password) {
       isValid = false;
       newErrors.password = 'Password is required';
     }
-
+    
     setErrors(newErrors);
     return isValid;
   };
-
+  
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +55,7 @@ const SignIn = () => {
       console.log(response.status)
       if(response.status === 200) {
         console.log(response.data.data.user)
+        updateProfile(response.data.data.user)
         navigate('/dashboard')
       }
       console.log('Form data submitted:', formData);

@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useProfile } from '../../utils/profileContext';
 import { Link } from "react-router-dom";
 
 const DashBoard = () => {
   const { profile, updateProfile } = useProfile()
-
+  
   // Dashboard rows for each profile field
   const fields = [
-    { name: 'Username', value: profile.username },
-    { name: 'Profile Picture', value: profile.profilePicture },
-    { name: 'Tagline', value: profile.tagline },
+    { name: 'username', value: profile.username },
+    { name: 'avatar', value: profile.avatar },
+    // { name: 'Tagline', value: profile.tagline },
     { name: 'Bio', value: profile.bio },
     { name: 'Skills', value: profile.skills },
     { name: 'Stack', value: profile.stack },
@@ -21,6 +21,9 @@ const DashBoard = () => {
   // Function to check if field is filled or needs a fix
   const getStatus = (value) => {
     if (Array.isArray(value)) return value.length > 0;
+    if (typeof value === 'object' && value !== null) return Object.values(value).some(
+      (val) => (Array.isArray(val) ? val.length > 0 : val !== '' && val !== null)
+    );
     return value  !== '';
   };
 
@@ -46,7 +49,7 @@ const DashBoard = () => {
         <div className='w-[100%] md:w-[60%] text-text-400'>
 
         <div className=" bg-primary-100 w-[100%] mb-7 p-6 rounded-lg border  ">
-        <p>Your site is available here: <a href="#" className=" text-classic_blue-700">{profile.portfolio}</a></p>
+        <p>Your site is available here: <a href="#" className=" text-classic_blue-700">{profile.username}</a></p>
         {/* <p>Your resume: <a href="#">https://folli.io/ahmadrehmani/resume</a></p> */}
         </div>
 

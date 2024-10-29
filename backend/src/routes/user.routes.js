@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { logOutUser, loginUser, refreshAccessToken, registerUser, updateSocialLinks, updateUserDetails, updateUserPassword,} from "../controllers/user.controller.js";
+import { deleteUser, logOutUser, loginUser, refreshAccessToken, registerUser, updateSocialLinks, updateUserDetails, updateUserPassword,} from "../controllers/user.controller.js";
 import passport from 'passport';
 import '../auth/passport.js'; 
 import {verifyJWT} from '../middlewares/auth.middleware.js'
@@ -99,6 +99,7 @@ router.get('/twitter/callback', passport.authenticate('twitter', { session: fals
 
 // Secure routes
 router.route('/check-auth').get(verifyJWT,checkAuth)
+router.route('/delete').get(verifyJWT,deleteUser)
 router.route('/logout').get(verifyJWT, logOutUser)
 router.route('/refresh-token').post(refreshAccessToken)
 

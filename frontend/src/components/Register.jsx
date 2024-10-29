@@ -4,9 +4,11 @@ import google from "../assets/icons/google.svg"
 import github from "../assets/icons/github.svg"
 // import axios from '../axiosConfig';
 import axios from 'axios';
+import { useProfile } from '../utils/profileContext';
 
 
 const Register = () => {
+  const { profile, updateProfile } = useProfile()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -63,15 +65,9 @@ const Register = () => {
           fullName: formData.name,
           email: formData.email,
           password: formData.password,
-        });
+        }, {withCredentials: true});
         setSuccessMessage(response.data.message); // Message from backend response
-        setFormData({
-          fullName: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-        });
-        
+        updateProfile(response.data.data.user)
         navigate('/dashboard')
       } catch (err) {
         setErrors({ form: err.response?.data?.message || 'Registration failed' });
@@ -80,6 +76,7 @@ const Register = () => {
       } finally {
         setLoading(false);
       }
+
       console.log('Form Submitted:', formData);
       // Handle form submission (e.g., call API)
     }

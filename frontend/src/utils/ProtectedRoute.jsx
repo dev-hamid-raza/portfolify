@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
 const ProtectedRoute = ({ redirectTo, children, publicOnly = false }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const navigate = useNavigate();

@@ -64,14 +64,14 @@ const ProfileDetails = () => {
                   id="file-upload"
                   className="hidden"
                   onChange={(e) =>
-                  setFormData({ ...formData, profilePicture: URL.createObjectURL(e.target.files[0]) })
+                  setFormData({ ...formData, avatar: URL.createObjectURL(e.target.files[0]) })
                   }
               />
                 </label>
                 </div>
                 <div className='w-[100%] md:w-[50%]'>
-                {formData.profilePicture && (
-                  <img src={formData.profilePicture} 
+                {formData.avatar && (
+                  <img src={formData.avatar} 
                     alt='picture'
                     className='w-[200px] h-[200px]'
                     />
@@ -81,15 +81,15 @@ const ProfileDetails = () => {
 
               {/* Nickname */}
               <div className=" ">
-                <label className="block text-sm font-medium text-gray-700">Nickname</label>
+                <label className="block text-sm font-medium text-gray-700">Username</label>
                 <input
                   type="text"
-                  name="nickname"
-                  value={formData.nickname}
+                  name="username"
+                  value={formData.username}
                   onChange={handleInputChange}
                   className="mt-1 p-2 outline-none  block w-full border border-gray-300 rounded-md focus:shadow-sm   sm:text-sm"
                 />
-                <p className="text-sm text-gray-500 mt-2">Your URL will look like: <span className='text-classic_blue-600'>  https://folio/{formData.nickname}</span></p>
+                <p className="text-sm text-gray-500 mt-2">Your URL will look like: <span className='text-classic_blue-600'>  https://folio/{formData.username}</span></p>
               </div>
 
               {/* Tagline */}
@@ -168,7 +168,7 @@ const ProfileDetails = () => {
               <iframe
                 title="Profile Preview"
                 className="w-full h-full"
-                src={`https://folio.com/preview?nickname=${formData.nickname}&template=${formData.template}`}
+                src={`https://folio.com/preview?nickname=${formData.username}&template=${formData.template}`}
               ></iframe>
             </div>
           </div>

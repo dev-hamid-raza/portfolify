@@ -54,9 +54,9 @@ const registerUser = asyncHandler( async (req, res) => {
         fullName,
         password,
         username,
-        skills: ''
     })
     
+    const {accessToken, refreshToken} = await generateAccessTokenAndRefreshToken(user._id)
     const createdUser = await User.findById(user._id).select(
         "-password -refreshToken"
     )
@@ -65,10 +65,17 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(500,'Something went wrong while registering the user')
     }
     
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
     return res
             .status(201)
+            .cookie('accessToken', accessToken, options)
+            .cookie('refreshToken', refreshToken, options)
             .json(
-                new ApiResponse(200, createdUser, 'User register successfully')
+                new ApiResponse(200, {user: createdUser, accessToken, refreshToken}, 'User register successfully')
             )
 })
 
@@ -283,6 +290,12 @@ const checkAuth = asyncHandler( async (req, res) => {
         .json(new ApiResponse(200,'','User login successfully'))
 })
 
+const deleteUser = asyncHandler( async (req , res) => {
+    const userId = req.user._id
+    await User.findByIdAndDelete(userId)
+    res.status(200).json('Successfully Delete')
+})
+
 export {registerUser,
         loginUser,
         logOutUser,
@@ -290,4 +303,5 @@ export {registerUser,
         updateUserPassword,
         updateUserDetails,
         updateSocialLinks,
+        deleteUser,
         checkAuth};

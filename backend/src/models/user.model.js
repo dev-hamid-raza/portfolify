@@ -54,10 +54,22 @@ const userSchema = new Schema({
         website: String
     },
     skills: [
-        {
-            type:String
-        }
-    ]
+            String
+    ],
+    stack: [String],
+    hobbies: [String],
+    language: {
+        type: String
+    },
+    template: {
+        type: String
+    },
+    links: {
+        type: String
+    },
+    resumeTemplate: {
+        type: String
+    }
 }, {timestamps: true})
 
 // encrypting the password
