@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useProfile } from '../../utils/profileContext';
 import axios from 'axios';
 
@@ -7,7 +7,7 @@ const ProfileDetails = () => {
   const { profile, updateProfile } = useProfile()
   const [formData, setFormData] = useState(profile)
   const [avatarFile, setAvatarFile] = useState(null)
-
+  console.log('this is pro',profile)
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -18,22 +18,58 @@ const ProfileDetails = () => {
     setAvatarFile(file);
     setFormData({ ...formData, avatar: URL.createObjectURL(file) });
   };
-  const handleAddTag = (e, field) => {
+  const handleAddTag = async  (e, field) => {
     if (e.key === 'Enter' && e.target.value !== '') {
-      setFormData({
+      // Add new tag to formData
+      const updatedFormData = {
         ...formData,
         [field]: [...formData[field], e.target.value],
-      });
+      };
+      
+      setFormData(updatedFormData); // Update the form state
+  
+      // Clear input field
       e.target.value = '';
+  
+      // Call API to update the profile
+      try {
+        const response = await axios.patch(
+          'http://localhost:8000/api/v1/users/update-user',
+          updatedFormData,
+          { withCredentials: true, headers: { 'Content-Type': 'application/json' } }
+        );
+        updateProfile(response.data.data); // Update the context profile with the response
+        console.log("Profile updated successfully");
+      } catch (err) {
+        console.error(err?.response?.data?.message || "Unable to update profile");
+      }
     }
   };
 
-  const handleDeleteTag = (tag, field) => {
-    setFormData({
+
+  const handleDeleteTag = async (tag, field) => {
+    // Update formData by removing the selected tag
+    const updatedFormData = {
       ...formData,
       [field]: formData[field].filter((item) => item !== tag),
-    });
+    };
+  
+    setFormData(updatedFormData); // Update the form state locally
+  
+    // Call API to update the profile
+    try {
+      const response = await axios.patch(
+        'http://localhost:8000/api/v1/users/update-user',
+        updatedFormData,
+        { withCredentials: true, headers: { 'Content-Type': 'application/json' } }
+      );
+      updateProfile(response.data.data); // Update the profile context with the server response
+      console.log("Profile updated successfully after tag deletion");
+    } catch (err) {
+      console.error(err?.response?.data?.message || "Unable to update profile after tag deletion");
+    }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

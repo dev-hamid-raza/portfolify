@@ -204,10 +204,10 @@ const updateUserPassword = asyncHandler(async (req, res) => {
 
 const updateUserDetails = asyncHandler(async (req, res) => {
     const userId = req.user._id; // Assuming you're using JWT and have middleware that attaches the user to the request
-    const { username, skills, bio } = req.body;
+    const { username, skills, bio, tagline, stack, hobbies } = req.body;
     const avatarLocalPath = req.files?.avatar?.[0]?.path
     // Validate input
-    if (!username && !avatarLocalPath && !skills && !bio) {
+    if (!username && !avatarLocalPath && !skills && !bio && !tagline && !stack && hobbies) {
         throw new ApiError(400, "At least one field (username, avatar, skills,) is required for update");
     }
 
@@ -244,9 +244,20 @@ const updateUserDetails = asyncHandler(async (req, res) => {
     if (bio) {
         user.bio = bio; // Assuming avatar is a URL or a file path
     }
+    if (tagline) {
+        user.tagline = tagline; // Assuming avatar is a URL or a file path
+    }
     if (skills && Array.isArray(skills)) {
         console.log("object")
         user.skills = skills; // Assuming skills is an array of strings
+    }
+    if (stack && Array.isArray(stack)) {
+        console.log("object")
+        user.stack = stack; // Assuming stack is an array of strings
+    }
+    if (hobbies && Array.isArray(hobbies)) {
+        console.log("object")
+        user.hobbies = hobbies; // Assuming stack is an array of strings
     }
 
     // Save the updated user
