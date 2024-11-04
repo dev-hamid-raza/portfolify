@@ -205,8 +205,7 @@ const updateUserPassword = asyncHandler(async (req, res) => {
 const updateUserDetails = asyncHandler(async (req, res) => {
     const userId = req.user._id; // Assuming you're using JWT and have middleware that attaches the user to the request
     const { username, skills, bio } = req.body;
-    const avatarLocalPath = req.files?.avatar[0]?.path
-
+    const avatarLocalPath = req.files?.avatar?.[0]?.path
     // Validate input
     if (!username && !avatarLocalPath && !skills && !bio) {
         throw new ApiError(400, "At least one field (username, avatar, skills,) is required for update");
@@ -296,6 +295,17 @@ const deleteUser = asyncHandler( async (req , res) => {
     res.status(200).json('Successfully Delete')
 })
 
+const userProfile = asyncHandler( async (req, res) => {
+    const userId = req.user._id
+    const user = await User.findById(userId).select('-password -refreshToken')
+    if(!user) {
+        throw new ApiError(404, 'User not found')
+    }
+    return res
+            .status(200)
+            .json(new ApiResponse(200,user))
+})
+
 export {registerUser,
         loginUser,
         logOutUser,
@@ -304,4 +314,5 @@ export {registerUser,
         updateUserDetails,
         updateSocialLinks,
         deleteUser,
-        checkAuth};
+        checkAuth,
+        userProfile};

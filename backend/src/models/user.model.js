@@ -62,13 +62,15 @@ const userSchema = new Schema({
         type: String
     },
     template: {
-        type: String
+        type: String,
+        default: 'Delta'
     },
     links: {
         type: String
     },
     resumeTemplate: {
-        type: String
+        type: String,
+        default: 'Basic'
     }
 }, {timestamps: true})
 
