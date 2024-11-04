@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext } from 'react'
+import React, { createContext, useState, useContext, useEffect } from 'react'
+import axios from 'axios'
 
 const ProfileContext = createContext()
 
@@ -11,7 +12,7 @@ export const ProfileProvider = ({ children }) => {
     password: "",
     avatar : "",
     username : "",
-    // tagline: "",
+    tagline: "",
     bio: "",
     template: "",
     resumeTemplate : "",
@@ -47,6 +48,20 @@ export const ProfileProvider = ({ children }) => {
   const updateProfile = (newProfileData) => {
     setProfile((prev) => ({ ...prev, ...newProfileData }))
   }
+
+// Fetch profile data from the backend on component mount
+useEffect(() => {
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/v1/users/profile', { withCredentials: true }) // Adjust endpoint as needed
+      setProfile(response.data.data)
+    } catch (error) {
+      console.error('Error fetching profile data:', error)
+    }
+  }
+
+  fetchProfile()
+}, [])
 
   return (
     <ProfileContext.Provider value={{ profile, updateProfile }}>

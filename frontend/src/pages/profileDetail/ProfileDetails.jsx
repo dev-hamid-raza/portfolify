@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { useProfile } from '../../utils/profileContext';
+import axios from 'axios';
 
 const ProfileDetails = () => {
 
   const { profile, updateProfile } = useProfile()
   const [formData, setFormData] = useState(profile)
+  const [avatarFile, setAvatarFile] = useState(null)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    setAvatarFile(file);
+    setFormData({ ...formData, avatar: URL.createObjectURL(file) });
+  };
   const handleAddTag = (e, field) => {
     if (e.key === 'Enter' && e.target.value !== '') {
       setFormData({
@@ -28,12 +35,32 @@ const ProfileDetails = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData)
     // Handle form submission
-    updateProfile(formData);
+    try {
+      // const updateData = new FormData();
+      // updateData.append('username', formData.username);
+      // updateData.append('tagline', formData.tagline);
+      // updateData.append('bio', formData.bio);
+      // updateData.append('template', formData.template);
+      // updateData.append('resumeTemplate', formData.resumeTemplate);
+      // console.log(avatarFile)
+      // if (avatarFile) {
+      //   updateData.append('avatar', avatarFile);
+      // }
+      // console.log(updateData)
+      const response = await axios.patch('http://localhost:8000/api/v1/users/update-user', {
+        ...formData, avatar: avatarFile
+      }, {withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } });
+      updateProfile(response.data.data)
+    } catch(err) {
+      console.log(err?.response?.data?.message || "Unable to update")
+    }
+    // updateProfile(formData);
   };
- console.log(formData)
+ 
   return (
     <div className='bg-primary-50'>
     <div className=' w-[100%] bg-white py-4 px-7 border-b'>
@@ -63,9 +90,7 @@ const ProfileDetails = () => {
                   type="file"
                   id="file-upload"
                   className="hidden"
-                  onChange={(e) =>
-                  setFormData({ ...formData, avatar: URL.createObjectURL(e.target.files[0]) })
-                  }
+                  onChange={handleAvatarChange}
               />
                 </label>
                 </div>
@@ -265,7 +290,7 @@ const ProfileDetails = () => {
               onChange={handleInputChange}
               className="mt-1 block p-2  outline-none w-full border border-gray-300 rounded-md shadow-sm  sm:text-sm"
             >
-              <option selected disabled>Select a language</option>
+              <option value='' disabled>Select a language</option>
               <option>English</option>
               <option>Spanish</option>
               <option>German</option>
