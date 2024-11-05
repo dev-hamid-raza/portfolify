@@ -3,8 +3,8 @@ import { useProfile } from '../../utils/profileContext';
 import { Link } from "react-router-dom";
 
 const DashBoard = () => {
-  const { profile, updateProfile } = useProfile()
-  
+  const { profile, updateProfile, loading } = useProfile()
+  if(loading) return <p>Loading..</p>
   // Dashboard rows for each profile field
   const fields = [
     { name: 'username', value: profile.username },

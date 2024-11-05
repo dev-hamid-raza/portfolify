@@ -50,7 +50,7 @@ const userSchema = new Schema({
     socialLinks: {
         github: String,
         twitter: String,
-        linkedin: String,
+        linkedIn: String,
         website: String
     },
     skills: [

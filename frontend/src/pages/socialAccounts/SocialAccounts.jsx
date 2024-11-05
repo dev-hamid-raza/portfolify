@@ -1,10 +1,12 @@
 import React , {useState}from 'react'
 import { useProfile } from '../../utils/profileContext';
+import axios from 'axios';
 
 function SocialAccounts() {
-    const { profile, updateProfile } = useProfile()
+    const { profile, updateProfile, loading } = useProfile()
+    if(loading) return <p>loading...</p>
     const [formData, setFormData] = useState(profile)
-  
+    console.log('this is from social links', formData.socialLinks)
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,10 +21,22 @@ function SocialAccounts() {
 
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log('THis is running')
     e.preventDefault();
     // Handle form submission
-    updateProfile(formData);
+    try {
+      const response = await axios.patch(
+        "http://localhost:8000/api/v1/users/social-links",
+        {twitter: formData.socialLinks.twitter, github: formData.socialLinks.github, linkedIn: formData.socialLinks.linkedIn},
+        {
+          withCredentials: true,
+        }
+      );
+      updateProfile(response.data.data);
+    } catch (err) {
+      console.log(err?.response?.data?.message || "Unable to update");
+    }
   };
   console.log(formData)
 
@@ -45,7 +59,7 @@ function SocialAccounts() {
                 <input
                   type="text"
                   name="linkedIn"
-                  value={formData.linkedIn}
+                  value={formData.socialLinks.linkedIn}
                   onChange={handleInputChange}
                   placeholder='http://www.linknedin.com/in/sampleusername'
                   className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
@@ -57,7 +71,7 @@ function SocialAccounts() {
                 <input
                   type="text"
                   name="twitter"
-                  value={formData.twitter}
+                  value={formData.socialLinks.twitter}
                   onChange={handleInputChange}
                   placeholder='http://www.twitter.com/sampleusername'
                   className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
@@ -71,7 +85,7 @@ function SocialAccounts() {
                 <input
                   type="text"
                   name="github"
-                  value={formData.github}
+                  value={formData.socialLinks.github}
                   onChange={handleInputChange}
                   placeholder='http://www.github.com/sampleusername'
                   className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"

@@ -24,7 +24,7 @@ const router = createBrowserRouter(
     <Route path='profile' element ={<ProtectedRoute><ProfileDetails/></ProtectedRoute>}/>
     <Route path='dashboard' element = {<ProtectedRoute><DashBoard/></ProtectedRoute>}/>
     <Route path='links' element = {<Links/>}/>
-    <Route path='social' element = {<SocialAccounts/>}/>
+    <Route path='social' element = {<ProtectedRoute><SocialAccounts /></ProtectedRoute>}/>
     <Route path='edit' element = {<ProfileEdit/>}/>
     </Route>
 

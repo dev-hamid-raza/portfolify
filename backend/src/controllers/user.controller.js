@@ -271,7 +271,8 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 const updateSocialLinks = asyncHandler(async (req, res) => {
     const userId = req.user._id; // Get user ID from the request (assumes user is authenticated)
 
-    const { github, twitter, linkedin, website } = req.body; // Destructure social links from the request body
+    const { github, twitter, linkedIn, website } = req.body; // Destructure social links from the request body
+    console.log('this is twitter', twitter)
 
     // Find the user by ID
     const user = await User.findById(userId);
@@ -282,9 +283,8 @@ const updateSocialLinks = asyncHandler(async (req, res) => {
     // Update social links
     user.socialLinks.github = github || user.socialLinks.github;
     user.socialLinks.twitter = twitter || user.socialLinks.twitter;
-    user.socialLinks.linkedin = linkedin || user.socialLinks.linkedin;
+    user.socialLinks.linkedIn = linkedIn || user.socialLinks.linkedIn;
     user.socialLinks.website = website || user.socialLinks.website;
-
     // Save the updated user
     await user.save();
 

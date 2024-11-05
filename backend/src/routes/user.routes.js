@@ -12,7 +12,7 @@ const router = Router()
 router.route('/register').post(registerUser)
 router.route('/update-password').patch(verifyJWT, updateUserPassword)
 router.route('/update-user').patch(verifyJWT, upload.fields([{name:'avatar', maxCount: 1}, {name:'coverImage', maxCount: 1}]) ,updateUserDetails)
-router.route('/social-links').put(verifyJWT, updateSocialLinks)
+router.route('/social-links').patch(verifyJWT, updateSocialLinks)
 
 // User login route
 router.route('/login').post(loginUser)
