@@ -3,8 +3,10 @@ import { useProfile } from "../../utils/profileContext";
 import axios from "axios";
 
 const ProfileDetails = () => {
-  const { profile, updateProfile } = useProfile();
+  const { profile, updateProfile, loading } = useProfile();
+  if(loading) return <p>loading..</p>
   const [formData, setFormData] = useState(profile);
+  console.log('this is profile from profile details', formData)
   const [avatarFile, setAvatarFile] = useState(null);
   console.log("this is pro", profile);
   const handleInputChange = (e) => {
@@ -25,6 +27,9 @@ const ProfileDetails = () => {
         [field]: [...formData[field], e.target.value],
       };
 
+      
+      
+      
       setFormData(updatedFormData); // Update the form state
 
       // Clear input field

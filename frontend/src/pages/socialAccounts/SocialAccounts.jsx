@@ -63,30 +63,8 @@ function SocialAccounts() {
                   className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
                 />
               </div>
-              {/* Facebook */}
-              <div className="">
-                <label className="block text-sm font-medium text-gray-700">Facebook</label>
-                <input
-                  type="text"
-                  name="facebook"
-                  value={formData.facebook}
-                  onChange={handleInputChange}
-                  placeholder='http://www.facebook.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
-                {/* Instagram */}
-                <div className="">
-                <label className="block text-sm font-medium text-gray-700">Instagram</label>
-                <input
-                  type="text"
-                  name="instagram"
-                  value={formData.instagram}
-                  onChange={handleInputChange}
-                  placeholder='http://www.instagram.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
+              
+                
                 {/* GitHub */}
                 <div className="">
                 <label className="block text-sm font-medium text-gray-700">GitHub</label>
@@ -99,126 +77,9 @@ function SocialAccounts() {
                   className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
                 />
               </div>
-                {/* YouTube */}
-                <div className="">
-                <label className="block text-sm font-medium text-gray-700">YouTube</label>
-                <input
-                  type="text"
-                  name="youtube"
-                  value={formData.youtube}
-                  onChange={handleInputChange}
-                  placeholder='http://www.youtube.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
-                {/* Dribbble */}
-                <div className="">
-                <label className="block text-sm font-medium text-gray-700">Dribble</label>
-                <input
-                  type="text"
-                  name="dribble"
-                  value={formData.dribble}
-                  onChange={handleInputChange}
-                  placeholder='http://www.dribble.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
-                {/* Behance */}
-              <div className="">
-                <label className="block text-sm font-medium text-gray-700">Behance</label>
-                <input
-                  type="text"
-                  name="behance"
-                  value={formData.behance}
-                  onChange={handleInputChange}
-                  placeholder='http://www.behance.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
-                {/* TikTok */}
-                <div className="">
-                <label className="block text-sm font-medium text-gray-700">TikTok</label>
-                <input
-                  type="text"
-                  name="tiktok"
-                  value={formData.tiktok}
-                  onChange={handleInputChange}
-                  placeholder='http://www.tiktok.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
-                {/* Printerest */}
-                <div className="">
-                <label className="block text-sm font-medium text-gray-700">Printerest</label>
-                <input
-                  type="text"
-                  name="printerest"
-                  value={formData.printerest}
-                  onChange={handleInputChange}
-                  placeholder='http://www.printerest.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
-                {/* SnapChat */}
-              <div className="">
-                <label className="block text-sm font-medium text-gray-700">Snapchat</label>
-                <input
-                  type="text"
-                  name="snapchat"
-                  value={formData.snapchat}
-                  onChange={handleInputChange}
-                  placeholder='http://www.printerest.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
-                {/* Reddit */}
-              <div className="">
-                <label className="block text-sm font-medium text-gray-700">Reddit</label>
-                <input
-                  type="text"
-                  name="reddit"
-                  value={formData.reddit}
-                  onChange={handleInputChange}
-                  placeholder='http://www.reddiit.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
-                {/* Tumblr */}
-              <div className="">
-                <label className="block text-sm font-medium text-gray-700">Tumblr</label>
-                <input
-                  type="text"
-                  name="tumblr"
-                  value={formData.tumblr}
-                  onChange={handleInputChange}
-                  placeholder='http://www.tumblrt.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
-                {/* Spotify */}
-              <div className="">
-                <label className="block text-sm font-medium text-gray-700">Spotify</label>
-                <input
-                  type="text"
-                  name="spotify"
-                  value={formData.spotify}
-                  onChange={handleInputChange}
-                  placeholder='http://www.spotify.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
-                {/* SoundCloud */}
-              <div className="">
-                <label className="block text-sm font-medium text-gray-700">SoundCloud</label>
-                <input
-                  type="text"
-                  name="SoundCloud"
-                  value={formData.soundCloud}
-                  onChange={handleInputChange}
-                  placeholder='http://www.soundCloud.com/sampleusername'
-                  className="mt-1 p-2 block w-full outline-none border border-gray-300 rounded-md hover:shadow-sm focus:shadow-sm  sm:text-sm"
-                />
-              </div>
+                
+                
+                
                 {/* update button */}
                 <button
                 type="submit"

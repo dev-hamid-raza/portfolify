@@ -20,8 +20,9 @@ const DashBoard = () => {
 
   // Function to check if field is filled or needs a fix
   const getStatus = (value) => {
+    if(value === undefined) return false
     if (Array.isArray(value)) return value.length > 0;
-    if (typeof value === 'object' && value !== null) return Object.values(value).some(
+    if (typeof value === 'object' && value !== null && value !== '') return Object.values(value).some(
       (val) => (Array.isArray(val) ? val.length > 0 : val !== '' && val !== null)
     );
     return value  !== '';
